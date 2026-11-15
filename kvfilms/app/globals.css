@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0b0c10;
+  --foreground: #f3f4f6;
+  --kv-accent: #f59e0b;
+  --kv-accent-hover: #b45309;
+  --kv-surface: #111318;
+  --kv-border: #272930;
+  --kv-muted: #9ca3af;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-kv-accent: var(--kv-accent);
+  --color-kv-accent-hover: var(--kv-accent-hover);
+  --color-kv-surface: var(--kv-surface);
+  --color-kv-border: var(--kv-border);
+  --color-kv-muted: var(--kv-muted);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
