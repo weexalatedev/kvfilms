@@ -1,8 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
-import { TEAM, SERVICES, SITE } from "@/lib/data";
+import { SITE } from "@/lib/data";
+import { getServices, getTeam } from "@/lib/content";
 
-export default function About() {
+export const dynamic = "force-dynamic";
+
+export default async function About() {
+  const [services, team] = await Promise.all([getServices(), getTeam()]);
+
   return (
     <div className="relative overflow-hidden">
       <section className="px-6 md:px-12 py-16 md:py-24">
@@ -26,7 +31,7 @@ export default function About() {
             </div>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
-            {SERVICES.map((service) => (
+            {services.map((service) => (
               <div key={service.name} className="p-8 rounded-2xl border border-kv-border/50 bg-kv-border hover:border-kv-accent/50 transition-colors">
                 <h3 className="font-bold text-foreground mb-4">{service.name}</h3>
                 <ul className="space-y-3 text-kv-muted text-sm leading-relaxed">
@@ -49,7 +54,7 @@ export default function About() {
             The Team
           </h2>
           <div className="grid md:grid-cols-2 gap-12">
-            {TEAM.map((member) => (
+            {team.map((member) => (
               <div key={member.id} className="flex gap-6 items-start">
                 <div className="relative w-32 h-32 flex-shrink-0 rounded-2xl overflow-hidden border border-kv-border bg-kv-border">
                   <Image src={member.image} alt={member.name} className="w-full h-full object-cover" width={320} height={320} />

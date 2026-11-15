@@ -1,32 +1,50 @@
 @import "tailwindcss";
 
-:root {
-  --background: #0b0c10;
-  --foreground: #f3f4f6;
+/*
+ * Design tokens. Tailwind v4 only generates utilities (bg-kv-accent,
+ * text-kv-muted, border-kv-border, …) from variables declared in @theme.
+ */
+@theme {
+  --color-background: #0b0c10;
+  --color-foreground: #f3f4f6;
   --color-kv-accent: #f59e0b;
   --color-kv-accent-hover: #b45309;
   --color-kv-surface: #111318;
   --color-kv-border: #272930;
   --color-kv-muted: #9ca3af;
+
+  --font-sans: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background: var(--color-kv-accent);
+  color: #000;
 }
 
 /* --- Lenis Smooth Scroll --- */
-html.lenis { height: auto; }
-.lenis.lenis-smooth { scroll-behavior: auto; }
-.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
-.lenis.lenis-stopped { overflow: hidden; }
-
-/* --- GSAP flicker prevention --- */
-html:not(.gsap-not-found) [data-prevent-flicker='true'] {
-  visibility: hidden;
+html.lenis {
+  height: auto;
 }
-[data-text-reveal='true'] { visibility: hidden; }
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
 
 /* --- Page transition overlay --- */
 .transition_wrap {
@@ -37,12 +55,12 @@ html:not(.gsap-not-found) [data-prevent-flicker='true'] {
   flex-direction: column;
   width: 100%;
   height: 100%;
-  background: var(--background);
+  background: var(--color-background);
 }
 .transition_panel {
   height: 33.33%;
   width: 100%;
-  background: var(--background);
+  background: var(--color-background);
 }
 
 /* --- Home gallery (rotated, Paragon-style) --- */
@@ -52,13 +70,16 @@ html:not(.gsap-not-found) [data-prevent-flicker='true'] {
   gap: 1.5rem;
 }
 @media (max-width: 768px) {
-  .home-gallery { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .home-gallery {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
 }
 .home-gallery_list_item {
   position: relative;
   overflow: hidden;
   border-radius: 0.75rem;
-  background: var(--kv-border);
+  background: var(--color-kv-border);
   aspect-ratio: 1;
   cursor: default;
 }
@@ -67,19 +88,25 @@ html:not(.gsap-not-found) [data-prevent-flicker='true'] {
   height: 100%;
   object-fit: cover;
   display: block;
+  transition: transform 0.7s ease;
+}
+.home-gallery_list_item:hover img {
+  transform: scale(1.06);
 }
 .home-gallery_list_item .gallery_overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.35);
+  background: rgba(0, 0, 0, 0.35);
   display: flex;
   align-items: flex-end;
   padding: 0.75rem;
   transition: background 0.3s ease;
 }
-.home-gallery_list_item:hover .gallery_overlay { background: rgba(0,0,0,0.15); }
+.home-gallery_list_item:hover .gallery_overlay {
+  background: rgba(0, 0, 0, 0.15);
+}
 .home-gallery_list_item .gallery_tag {
-  color: var(--kv-accent);
+  color: var(--color-kv-accent);
   font-weight: 800;
   font-size: 0.75rem;
   text-transform: uppercase;
@@ -88,20 +115,66 @@ html:not(.gsap-not-found) [data-prevent-flicker='true'] {
 }
 
 /* Rotated gallery items (Paragon home-gallery pattern) */
-.home-gallery_list_item:nth-child(9n+1) { transform: rotate(8.78deg); margin-left: -4.64%; margin-top: -2.1%; }
-.home-gallery_list_item:nth-child(9n+2) { transform: rotate(-13.98deg); margin-left: 24.3%; margin-right: 3.25%; margin-top: -6.24%; }
-.home-gallery_list_item:nth-child(9n+3) { transform: rotate(6.58deg); margin-left: auto; margin-right: 0.64%; margin-top: 6.6%; }
-.home-gallery_list_item:nth-child(9n+4) { transform: rotate(-5.97deg); margin-left: -7.2%; margin-right: 1.2%; margin-top: -8%; }
-.home-gallery_list_item:nth-child(9n+5) { transform: rotate(16.22deg); margin-left: auto; margin-right: 1.2%; margin-top: -5%; }
-.home-gallery_list_item:nth-child(9n+6) { transform: rotate(-8.2deg); margin-left: auto; margin-right: -4.2%; margin-top: 8%; }
-.home-gallery_list_item:nth-child(9n+7) { transform: rotate(-13.98deg); margin-left: 24.3%; margin-right: 3.25%; margin-top: 4.24%; }
-.home-gallery_list_item:nth-child(9n+8) { transform: rotate(-8.2deg); margin-left: auto; margin-right: -4.2%; margin-top: 8%; }
-.home-gallery_list_item:nth-child(9n+9) { transform: rotate(6.58deg); margin-left: auto; margin-right: 0; margin-top: -3%; }
+.home-gallery_list_item:nth-child(9n + 1) {
+  transform: rotate(8.78deg);
+  margin-left: -4.64%;
+  margin-top: -2.1%;
+}
+.home-gallery_list_item:nth-child(9n + 2) {
+  transform: rotate(-13.98deg);
+  margin-left: 24.3%;
+  margin-right: 3.25%;
+  margin-top: -6.24%;
+}
+.home-gallery_list_item:nth-child(9n + 3) {
+  transform: rotate(6.58deg);
+  margin-left: auto;
+  margin-right: 0.64%;
+  margin-top: 6.6%;
+}
+.home-gallery_list_item:nth-child(9n + 4) {
+  transform: rotate(-5.97deg);
+  margin-left: -7.2%;
+  margin-right: 1.2%;
+  margin-top: -8%;
+}
+.home-gallery_list_item:nth-child(9n + 5) {
+  transform: rotate(16.22deg);
+  margin-left: auto;
+  margin-right: 1.2%;
+  margin-top: -5%;
+}
+.home-gallery_list_item:nth-child(9n + 6) {
+  transform: rotate(-8.2deg);
+  margin-left: auto;
+  margin-right: -4.2%;
+  margin-top: 8%;
+}
+.home-gallery_list_item:nth-child(9n + 7) {
+  transform: rotate(-13.98deg);
+  margin-left: 24.3%;
+  margin-right: 3.25%;
+  margin-top: 4.24%;
+}
+.home-gallery_list_item:nth-child(9n + 8) {
+  transform: rotate(-8.2deg);
+  margin-left: auto;
+  margin-right: -4.2%;
+  margin-top: 8%;
+}
+.home-gallery_list_item:nth-child(9n + 9) {
+  transform: rotate(6.58deg);
+  margin-left: auto;
+  margin-right: 0;
+  margin-top: -3%;
+}
 
 /* Section headings */
-.section_head { margin-bottom: 1rem; }
+.section_head {
+  margin-bottom: 1rem;
+}
 .section_eyebrow {
-  color: var(--kv-accent);
+  color: var(--color-kv-accent);
   font-weight: 900;
   font-size: 0.7rem;
   text-transform: uppercase;
@@ -111,13 +184,14 @@ html:not(.gsap-not-found) [data-prevent-flicker='true'] {
 }
 .section_title {
   font-weight: 900;
+  font-size: clamp(1.75rem, 3.2vw, 2.75rem);
   line-height: 1.05;
   letter-spacing: -0.02em;
-  color: var(--foreground);
+  color: var(--color-foreground);
   margin-bottom: 0.5rem;
 }
 .section_sub {
-  color: var(--kv-muted);
+  color: var(--color-kv-muted);
   font-size: 0.875rem;
   line-height: 1.5;
   max-width: 42ch;
@@ -128,19 +202,38 @@ html:not(.gsap-not-found) [data-prevent-flicker='true'] {
   position: relative;
   overflow: hidden;
   border-radius: 0.75rem;
-  background: var(--kv-border);
-  border: 1px solid var(--kv-border);
-  aspect-ratio: 4/5;
+  background: var(--color-kv-border);
+  border: 1px solid var(--color-kv-border);
+  aspect-ratio: 4 / 5;
   display: flex;
   flex-direction: column;
 }
-.work_card img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.work_card_content {
-  position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent 40%);
-  padding: 1rem;
-  display: flex; flex-direction: column; justify-content: flex-end;
+.work_card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
-.work_card_title { color: var(--foreground); font-weight: 800; font-size: 0.95rem; line-height: 1.25; }
-.work_card_cat { color: var(--kv-accent); font-weight: 800; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.25rem; }
-
+.work_card_content {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent 40%);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.work_card_title {
+  color: var(--color-foreground);
+  font-weight: 800;
+  font-size: 0.95rem;
+  line-height: 1.25;
+}
+.work_card_cat {
+  color: var(--color-kv-accent);
+  font-weight: 800;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 0.25rem;
+}

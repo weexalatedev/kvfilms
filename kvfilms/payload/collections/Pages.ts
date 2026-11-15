@@ -1,9 +1,13 @@
-import { CollectionConfig } from "payload/types";
+import type { CollectionConfig } from "payload";
 
 export const Pages: CollectionConfig = {
   slug: "pages",
-  auth: {
-    public: true,
+  admin: {
+    useAsTitle: "title",
+    group: "Content",
+  },
+  access: {
+    read: () => true,
   },
   fields: [
     {
@@ -15,6 +19,8 @@ export const Pages: CollectionConfig = {
       name: "slug",
       type: "text",
       required: true,
+      unique: true,
+      index: true,
     },
     {
       name: "content",

@@ -1,9 +1,14 @@
-import { CollectionConfig } from "payload/types";
+import type { CollectionConfig } from "payload";
 
 export const News: CollectionConfig = {
   slug: "news",
-  auth: {
-    public: true,
+  admin: {
+    useAsTitle: "title",
+    defaultColumns: ["title", "date", "slug"],
+    group: "Content",
+  },
+  access: {
+    read: () => true,
   },
   fields: [
     {
@@ -12,9 +17,24 @@ export const News: CollectionConfig = {
       required: true,
     },
     {
+      name: "slug",
+      type: "text",
+      required: true,
+      unique: true,
+      index: true,
+      admin: {
+        description: "Used for anchor links, e.g. merch-drop-pursuit",
+      },
+    },
+    {
       name: "date",
       type: "date",
       required: true,
+      admin: {
+        date: {
+          pickerAppearance: "dayOnly",
+        },
+      },
     },
     {
       name: "image",

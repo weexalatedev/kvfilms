@@ -1,9 +1,14 @@
-import { CollectionConfig } from "payload/types";
+import type { CollectionConfig } from "payload";
 
 export const Team: CollectionConfig = {
   slug: "team",
-  auth: {
-    public: true,
+  admin: {
+    useAsTitle: "name",
+    defaultColumns: ["name", "role"],
+    group: "Content",
+  },
+  access: {
+    read: () => true,
   },
   fields: [
     {

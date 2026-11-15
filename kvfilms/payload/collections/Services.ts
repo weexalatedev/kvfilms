@@ -1,9 +1,13 @@
-import { CollectionConfig } from "payload/types";
+import type { CollectionConfig } from "payload";
 
 export const Services: CollectionConfig = {
   slug: "services",
-  auth: {
-    public: true,
+  admin: {
+    useAsTitle: "title",
+    group: "Content",
+  },
+  access: {
+    read: () => true,
   },
   fields: [
     {

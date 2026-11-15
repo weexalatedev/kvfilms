@@ -1,8 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
-import { NEWS } from "@/lib/data";
+import { getNews } from "@/lib/content";
 
-export default function News() {
+export const dynamic = "force-dynamic";
+
+export default async function News() {
+  const news = await getNews();
+
   return (
     <div className="relative overflow-hidden">
       <section className="px-6 md:px-12 py-16 md:py-24">
@@ -15,8 +19,8 @@ export default function News() {
           </p>
 
           <div className="grid md:grid-cols-2 gap-8">
-            {NEWS.map((article) => (
-              <article key={article.id} className="mb-8 last:mb-0">
+            {news.map((article) => (
+              <article key={article.id} id={article.id} className="mb-8 last:mb-0 scroll-mt-24">
                 <div className="relative rounded-xl overflow-hidden bg-kv-border mb-4 aspect-[4/3]">
                   <Image src={article.image} alt={article.title} className="w-full h-full object-cover" width={640} height={480} />
                 </div>
@@ -35,6 +39,9 @@ export default function News() {
                 <p className="text-kv-muted leading-relaxed">{article.excerpt}</p>
               </article>
             ))}
+            {news.length === 0 && (
+              <p className="text-kv-muted">No updates yet — check back soon.</p>
+            )}
           </div>
         </div>
       </section>

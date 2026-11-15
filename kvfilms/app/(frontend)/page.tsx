@@ -1,14 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
 import TextReveal from "@/components/TextReveal";
-import { WORKS, TEAM, SITE } from "@/lib/data";
+import { SITE } from "@/lib/data";
+import { getTeam, getWorks } from "@/lib/content";
 
-export default function Home() {
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  const [works, team] = await Promise.all([getWorks(), getTeam()]);
+
   return (
     <div className="relative overflow-hidden">
       <section className="relative px-6 py-28 md:px-12 md:py-40">
         <div className="max-w-4xl mx-auto text-center">
-          <TextReveal className="block inline-block px-3 py-1 mb-8 rounded-full border border-kv-border text-kv-accent text-[10px] font-bold uppercase tracking-widest">
+          <TextReveal className="inline-block px-3 py-1 mb-8 rounded-full border border-kv-border text-kv-accent text-[10px] font-bold uppercase tracking-widest">
             Production Studio · Vapi
           </TextReveal>
           <h1 className="text-5xl md:text-8xl font-black tracking-tight leading-[1.05] mb-6 text-foreground">
@@ -37,7 +42,7 @@ export default function Home() {
 
       <section className="px-6 md:px-12 py-24 border-y border-kv-border bg-kv-surface">
         <div className="max-w-7xl mx-auto">
-          <div className="flex items-center justify-between mb-10 section_head">
+          <div className="flex flex-wrap gap-4 items-center justify-between mb-10 section_head">
             <div>
               <div className="section_eyebrow">Selected works</div>
               <div className="section_title">Featured Work</div>
@@ -48,15 +53,12 @@ export default function Home() {
             </Link>
           </div>
           <div className="home-gallery">
-            {WORKS.map((work, i) => (
-              <div
-                key={work.id}
-                className="home-gallery_list_item group rot-1"
-              >
+            {works.map((work, i) => (
+              <div key={work.id} className="home-gallery_list_item group">
                 <Image
                   src={work.image}
                   alt={work.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  className="w-full h-full object-cover"
                   width={400}
                   height={400}
                   priority={i < 3}
@@ -102,7 +104,7 @@ export default function Home() {
             </div>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {WORKS.map((work) => (
+            {works.map((work) => (
               <Link key={work.id} href={`/work#${work.id}`} className="block">
                 <div className="work_card group">
                   <Image src={work.image} alt={work.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" width={400} height={500} />
@@ -129,7 +131,7 @@ export default function Home() {
             <div className="section_title">The People Behind the Frame</div>
           </div>
           <div className="grid md:grid-cols-2 gap-12">
-            {TEAM.map((member) => (
+            {team.map((member) => (
               <div key={member.id} className="flex flex-col items-center gap-4">
                 <div className="relative w-48 h-48 rounded-full overflow-hidden border border-kv-border bg-kv-border">
                   <Image src={member.image} alt={member.name} className="w-full h-full object-cover" width={400} height={400} />

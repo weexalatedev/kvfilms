@@ -61,16 +61,16 @@ export default function Contact() {
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <label className="text-xs font-medium uppercase tracking-widest text-kv-muted">Name</label>
-                      <input type="text" required className="w-full px-4 py-3 rounded bg-kv-border border border-kv-border/50 text-foreground placeholder-kv-muted/50 focus:outline-none focus:ring-1 focus:ring-kv-accent transition-all" placeholder="Your name" />
+                      <input type="text" required className="w-full px-4 py-3 rounded bg-kv-border border border-kv-border/50 text-foreground placeholder:text-kv-muted/50 focus:outline-none focus:ring-1 focus:ring-kv-accent transition-all" placeholder="Your name" />
                     </div>
                     <div className="space-y-2">
                       <label className="text-xs font-medium uppercase tracking-widest text-kv-muted">Email</label>
-                      <input type="email" required className="w-full px-4 py-3 rounded bg-kv-border border border-kv-border/50 text-foreground placeholder-kv-muted/50 focus:outline-none focus:ring-1 focus:ring-kv-accent transition-all" placeholder="you@studio.com" />
+                      <input type="email" required className="w-full px-4 py-3 rounded bg-kv-border border border-kv-border/50 text-foreground placeholder:text-kv-muted/50 focus:outline-none focus:ring-1 focus:ring-kv-accent transition-all" placeholder="you@studio.com" />
                     </div>
                   </div>
                   <div className="space-y-2">
                     <label className="text-xs font-medium uppercase tracking-widest text-kv-muted">Message</label>
-                    <textarea required rows={4} className="w-full px-4 py-3 rounded bg-kv-border border border-kv-border/50 text-foreground placeholder-kv-muted/50 focus:outline-none focus:ring-1 focus:ring-kv-accent transition-all" placeholder="Tell us about your project…" />
+                    <textarea required rows={4} className="w-full px-4 py-3 rounded bg-kv-border border border-kv-border/50 text-foreground placeholder:text-kv-muted/50 focus:outline-none focus:ring-1 focus:ring-kv-accent transition-all" placeholder="Tell us about your project…" />
                   </div>
                   <button
                     type="submit"
