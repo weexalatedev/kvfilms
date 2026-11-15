@@ -1,0 +1,12 @@
+node_modules/
+.next/
+out/
+build/
+dist/
+paragon_extract/
+*.zip
+.env*
+.DS_Store
+npm-debug.log*
+.vercel
+*.tsbuildinfo
