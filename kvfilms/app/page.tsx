@@ -1,21 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
+import TextReveal from "@/components/TextReveal";
 import { WORKS, TEAM, SITE } from "@/lib/data";
-
-const FEATURED = WORKS.slice(0, 4);
 
 export default function Home() {
   return (
     <div className="relative overflow-hidden">
-      {/* Hero */}
-      <section className="relative px-6 py-24 md:px-12 md:py-32">
+      <section className="relative px-6 py-28 md:px-12 md:py-40">
         <div className="max-w-4xl mx-auto text-center">
-          <span className="inline-block px-3 py-1 mb-6 rounded-full border border-kv-border text-kv-accent text-xs font-bold uppercase tracking-widest">
+          <TextReveal className="block inline-block px-3 py-1 mb-8 rounded-full border border-kv-border text-kv-accent text-[10px] font-bold uppercase tracking-widest">
             Production Studio · Vapi
-          </span>
-          <h1 className="text-5xl md:text-7xl font-black tracking-tight leading-[1.1] mb-6 text-foreground">
-            Crafted to last.<br />
-            <span className="text-kv-accent">Built in Vapi.</span>
+          </TextReveal>
+          <h1 className="text-5xl md:text-8xl font-black tracking-tight leading-[1.05] mb-6 text-foreground">
+            <TextReveal className="block">Crafted to last.</TextReveal>
+            <TextReveal className="block text-kv-accent">Built in Vapi.</TextReveal>
           </h1>
           <p className="text-lg md:text-xl text-kv-muted max-w-2xl mx-auto leading-relaxed mb-10">
             {SITE.description}
@@ -37,27 +35,48 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Hero image strip */}
-      <section className="px-6 md:px-12 py-12 border-y border-kv-border bg-kv-surface">
-        <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
-          {[...FEATURED].reverse().map((work) => (
-            <div key={work.id} className="relative overflow-hidden rounded-xl bg-kv-border aspect-[4/5] group">
-              <Image src={work.image} alt={work.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" width={400} height={500} />
-              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/10 transition-colors flex items-end p-4">
-                <span className="text-kv-accent font-bold text-sm uppercase tracking-widest">{work.category}</span>
-              </div>
+      <section className="px-6 md:px-12 py-24 border-y border-kv-border bg-kv-surface">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex items-center justify-between mb-10 section_head">
+            <div>
+              <div className="section_eyebrow">Selected works</div>
+              <div className="section_title">Featured Work</div>
+              <div className="section_sub">A few projects that make us proud.</div>
             </div>
-          ))}
+            <Link href="/work" className="text-kv-accent font-bold text-sm uppercase tracking-widest hover:underline">
+              View all work →
+            </Link>
+          </div>
+          <div className="home-gallery">
+            {WORKS.map((work, i) => (
+              <div
+                key={work.id}
+                className="home-gallery_list_item group rot-1"
+              >
+                <Image
+                  src={work.image}
+                  alt={work.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  width={400}
+                  height={400}
+                  priority={i < 3}
+                />
+                <div className="gallery_overlay">
+                  <span className="gallery_tag">{work.category}</span>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Intro */}
-      <section className="px-6 md:px-12 py-24">
+      <section className="px-6 md:px-12 py-28">
         <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-6 text-foreground">A production partner driven by pursuit.</h2>
-              <p className="text-kv-muted leading-relaxed mb-8">
+              <div className="section_eyebrow">About the studio</div>
+              <div className="section_title">A production partner driven by pursuit.</div>
+              <p className="section_sub mb-8">
                 We team up with brands and agencies to craft commercials, branded films, and campaigns
                 built on craft and culture. Based in Vapi, Gujarat, we work across creative direction,
                 production, and post — editorial, sound design, color, and VFX & motion.
@@ -66,44 +85,49 @@ export default function Home() {
                 Who We Are →
               </Link>
             </div>
-            <div className="relative h-64 rounded-2xl overflow-hidden bg-kv-border">
+            <div className="relative h-72 rounded-2xl overflow-hidden bg-kv-border border border-kv-border/50">
               <Image src="/images/Crew-Teddy.avif" alt="KV Films crew" className="w-full h-full object-cover" width={640} height={480} />
             </div>
           </div>
         </div>
       </section>
-      {/* Featured work */}
-      <section className="px-6 md:px-12 py-24 bg-kv-surface">
+
+      <section className="px-6 md:px-12 py-28 bg-kv-surface">
         <div className="max-w-7xl mx-auto">
-          <div className="flex items-center justify-between mb-10">
+          <div className="flex items-center justify-between mb-12 section_head">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-2 text-foreground">Featured Work</h2>
-              <p className="text-kv-muted text-sm">A few projects that make us proud.</p>
+              <div className="section_eyebrow">Latest work</div>
+              <div className="section_title">The Work</div>
+              <div className="section_sub">Commercials, branded films, and campaigns built on craft.</div>
             </div>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {WORKS.map((work) => (
+              <Link key={work.id} href={`/work#${work.id}`} className="block">
+                <div className="work_card group">
+                  <Image src={work.image} alt={work.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" width={400} height={500} />
+                  <div className="work_card_content">
+                    <h3 className="work_card_title">{work.title}</h3>
+                    <span className="work_card_cat">{work.category}</span>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+          <div className="mt-12 text-center">
             <Link href="/work" className="text-kv-accent font-bold text-sm uppercase tracking-widest hover:underline">
               View all work →
             </Link>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {FEATURED.map((work) => (
-              <Link key={work.id} href={`/work#${work.id}`} className="block group">
-                <div className="relative overflow-hidden rounded-xl bg-kv-border aspect-[4/5] mb-3">
-                  <Image src={work.image} alt={work.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" width={400} height={500} />
-                </div>
-                <h3 className="font-bold text-foreground group-hover:text-kv-accent transition-colors">{work.title}</h3>
-                <span className="text-xs text-kv-muted uppercase tracking-widest">{work.category}</span>
-              </Link>
-            ))}
-          </div>
         </div>
       </section>
 
-      {/* Directors / team */}
-      <section className="px-6 md:px-12 py-24">
+      <section className="px-6 md:px-12 py-28">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-10 text-foreground text-center">
-            The People Behind the Frame
-          </h2>
+          <div className="section_head mb-12 text-center">
+            <div className="section_eyebrow">The studio</div>
+            <div className="section_title">The People Behind the Frame</div>
+          </div>
           <div className="grid md:grid-cols-2 gap-12">
             {TEAM.map((member) => (
               <div key={member.id} className="flex flex-col items-center gap-4">
