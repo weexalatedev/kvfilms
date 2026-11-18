@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import PageTransition from "@/components/PageTransition";
+import LenisScroll from "@/components/LenisScroll";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -38,9 +40,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col antialiased">
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <PageTransition>
+          <LenisScroll>
+            <Navbar />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </LenisScroll>
+        </PageTransition>
       </body>
     </html>
   );
