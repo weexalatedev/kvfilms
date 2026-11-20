@@ -59,9 +59,32 @@ export async function seed(payload: Payload) {
             slug: work.id,
             category: work.category,
             description: work.description,
+            director: "KV Films",
+            year: "2025",
             image,
           },
         });
+      }
+    }
+
+    // Projects created before the project pages existed have no director or
+    // year; fill only the empty values so studio edits are never overwritten.
+    if (works.totalDocs > 0) {
+      for (const work of WORKS) {
+        const existing = await payload.find({
+          collection: "works",
+          where: { slug: { equals: work.id } },
+          limit: 1,
+          depth: 0,
+        });
+        const doc = existing.docs[0];
+        if (doc && !doc.director && !doc.year) {
+          await payload.update({
+            collection: "works",
+            id: doc.id,
+            data: { director: "KV Films", year: "2025" },
+          });
+        }
       }
     }
 

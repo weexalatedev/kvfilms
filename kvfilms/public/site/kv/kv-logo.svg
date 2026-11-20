@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" role="img" aria-label="KV Films logo">
+  <!-- Left: VK monogram, bold geometric blocky font -->
+  <g transform="translate(20,40)">
+    <path fill="#000000" d="M20 30 h40 v40 h-40 z"/><!-- V base -->
+    <path fill="#000000" d="M60 30 h40 v40 H60 z"/><!-- K vertical stem + arms -->
+    <!-- Simplified: V's right diagonal becomes K's stem, K has crossbar -->
+    <path fill="#000000" d="M60 50 h40"/><!-- K crossbar left -->
+    <path fill="#000000" d="M90 50 h10"/><!-- K crossbar right tip -->
+  </g>
+  <!-- Right: FILMS wordmark -->
+  <g transform="translate(140,100)">
+    <text fill="#000000" font-family="Helvetica, Arial, sans-serif" font-weight="900" font-size="64" letter-spacing="2">FILMS</text>
+    <text transform="translate(0, 40)" fill="#5a5a5a" font-family="Helvetica, Arial, sans-serif" font-weight="700" font-size="24" letter-spacing="4">KARAN VERMA</text>
+  </g>
+</svg>

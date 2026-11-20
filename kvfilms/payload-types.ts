@@ -31,6 +31,23 @@ export interface Work {
   category: WorkCategory;
   image: number | Media;
   description?: string | null;
+  client?: string | null;
+  director?: string | null;
+  year?: string | null;
+  videoUrl?: string | null;
+  credits?:
+    | {
+        label: string;
+        value: string;
+        id?: string | null;
+      }[]
+    | null;
+  gallery?:
+    | {
+        image: number | Media;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
 }

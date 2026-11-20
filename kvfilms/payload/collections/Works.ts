@@ -48,6 +48,67 @@ export const Works: CollectionConfig = {
     {
       name: "description",
       type: "textarea",
+      label: "Synopsis",
+    },
+    {
+      type: "row",
+      fields: [
+        {
+          name: "client",
+          type: "text",
+        },
+        {
+          name: "director",
+          type: "text",
+        },
+        {
+          name: "year",
+          type: "text",
+        },
+      ],
+    },
+    {
+      name: "videoUrl",
+      type: "text",
+      admin: {
+        description:
+          "Optional. A direct .mp4 link or a Vimeo / YouTube watch URL. Shown on the project page and as the hover preview on the work page.",
+      },
+    },
+    {
+      name: "credits",
+      type: "array",
+      label: "Credits",
+      labels: { singular: "Credit", plural: "Credits" },
+      admin: {
+        description: "Leave empty to show Format, Director, Client and Year instead.",
+      },
+      fields: [
+        {
+          name: "label",
+          type: "text",
+          required: true,
+        },
+        {
+          name: "value",
+          type: "text",
+          required: true,
+        },
+      ],
+    },
+    {
+      name: "gallery",
+      type: "array",
+      label: "Gallery",
+      labels: { singular: "Image", plural: "Gallery images" },
+      fields: [
+        {
+          name: "image",
+          type: "upload",
+          relationTo: "media",
+          required: true,
+        },
+      ],
     },
   ],
   timestamps: true,
