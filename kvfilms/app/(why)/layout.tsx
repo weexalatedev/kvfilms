@@ -1,10 +1,12 @@
 import SiteShell from "@/components/site/SiteShell";
+import { pageMetadata } from "@/lib/siteMetadata";
 
-export const metadata = {
+export const metadata = pageMetadata({
   title: "Who We Are | KV FILMS",
   description:
     "KV Films brings together talent, ideas, and opportunity through a culture of respect, curiosity, and collaboration.",
-};
+  path: "/why",
+});
 
 export default function WhyLayout({ children }: { children: React.ReactNode }) {
   return (
