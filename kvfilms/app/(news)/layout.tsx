@@ -1,9 +1,11 @@
 import SiteShell from "@/components/site/SiteShell";
+import { pageMetadata } from "@/lib/siteMetadata";
 
-export const metadata = {
+export const metadata = pageMetadata({
   title: "News & Updates | KV FILMS",
   description: "New projects, press, and studio updates from KV Films.",
-};
+  path: "/news",
+});
 
 export default function NewsLayout({ children }: { children: React.ReactNode }) {
   return (

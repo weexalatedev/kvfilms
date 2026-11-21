@@ -1,10 +1,12 @@
 import SiteShell from "@/components/site/SiteShell";
+import { pageMetadata } from "@/lib/siteMetadata";
 
-export const metadata = {
+export const metadata = pageMetadata({
   title: "Work | KV FILMS",
   description:
     "Commercials, branded films, branded content and campaigns produced by KV Films in Vapi, Gujarat.",
-};
+  path: "/work",
+});
 
 export default function WorkLayout({ children }: { children: React.ReactNode }) {
   return (

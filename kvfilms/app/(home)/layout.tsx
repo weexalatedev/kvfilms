@@ -1,10 +1,12 @@
 import SiteShell from "@/components/site/SiteShell";
+import { pageMetadata } from "@/lib/siteMetadata";
 
-export const metadata = {
+export const metadata = pageMetadata({
   title: "KV FILMS | Creative Production Studio",
   description:
     "KV Films is a production partner driven by pursuit. We team up with brands and agencies to craft commercials, branded films, and campaigns built on craft and culture.",
-};
+  path: "/",
+});
 
 export default function HomeLayout({ children }: { children: React.ReactNode }) {
   return (
